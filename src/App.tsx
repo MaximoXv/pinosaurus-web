@@ -1,8 +1,10 @@
 import profileImg from "./assets/profile.png";
 import portraitImg from "./assets/PORTADA1.png";
+import { useNavigate } from "react-router-dom";
 // import backgroundImg from "./assets/background.png";
 
 function App() {
+  const navigate = useNavigate();
   const mangos = [
     { name: "POKÉMON RED & LEAF", img: portraitImg },
     { name: "POKÉMON RED & LEAF", img: portraitImg },
@@ -42,6 +44,7 @@ function App() {
             <div
               className="cursor-pointer hover:scale-110 hover:brightness-100 transition-all duration-300 flex flex-col gap-2 h-56 md:h-full w-24 md:w-64 items-center md:aspect-3/4 overflow-hidden brightness-75"
               key={index}
+              onClick={() => navigate("/manga")}
             >
               <img
                 className="block w-full h-full object-cover rounded-xl"
