@@ -1,21 +1,31 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import portraitImg from "../assets/PORTADA1.png";
+import type { Manga } from "../hooks/useGetMangos";
+
+interface LocationState {
+  mangas: Manga[];
+}
 
 export const MangaPage = () => {
   const navigate = useNavigate();
-  const mangos = [
-    { name: "Chapter 1 - Pallet Town", img: portraitImg },
-    { name: "Chapter 1 - Pallet Town", img: portraitImg },
-    { name: "Chapter 1 - Pallet Town", img: portraitImg },
-    { name: "Chapter 1 - Pallet Town", img: portraitImg },
-    { name: "Chapter 1 - Pallet Town", img: portraitImg },
-    { name: "Chapter 1 - Pallet Town", img: portraitImg },
-    { name: "Chapter 1 - Pallet Town", img: portraitImg },
-    { name: "Chapter 1 - Pallet Town", img: portraitImg },
-    { name: "Chapter 1 - Pallet Town", img: portraitImg },
-    { name: "Chapter 1 - Pallet Town", img: portraitImg },
-    { name: "Chapter 1 - Pallet Town", img: portraitImg },
-  ];
+  const location = useLocation();
+
+  const state = location.state as LocationState | null;
+
+  const mangas = state?.mangas ?? [];
+  // const mangos = [
+  //   { name: "Chapter 1 - Pallet Town", img: portraitImg },
+  //   { name: "Chapter 1 - Pallet Town", img: portraitImg },
+  //   { name: "Chapter 1 - Pallet Town", img: portraitImg },
+  //   { name: "Chapter 1 - Pallet Town", img: portraitImg },
+  //   { name: "Chapter 1 - Pallet Town", img: portraitImg },
+  //   { name: "Chapter 1 - Pallet Town", img: portraitImg },
+  //   { name: "Chapter 1 - Pallet Town", img: portraitImg },
+  //   { name: "Chapter 1 - Pallet Town", img: portraitImg },
+  //   { name: "Chapter 1 - Pallet Town", img: portraitImg },
+  //   { name: "Chapter 1 - Pallet Town", img: portraitImg },
+  //   { name: "Chapter 1 - Pallet Town", img: portraitImg },
+  // ];
 
   return (
     <div className="flex flex-col w-full text-white items-center bg-neutral-900">
@@ -36,20 +46,20 @@ export const MangaPage = () => {
       <main className="flex flex-col gap-6 bg-neutral-900 p-6 max-w-7xl w-full">
         <p className="text-xl font-bold w-full">Chapters</p>
         <div className="w-full flex flex-col gap-4 justify-center">
-          {mangos.map((mango, index) => (
+          {mangas.map((mango, index) => (
             <div
               className="hover:scale-105 cursor-pointer transition-all duration-300 flex items-center gap-2 bg-neutral-700 p-2 rounded-lg w-full"
               key={index}
               onClick={() => {
-                navigate("/chapter");
+                navigate("/chapter", { state: { manga: mango } });
               }}
             >
               <img
                 className="block w-12 h-12 object-cover rounded-xl"
-                src={mango.img}
+                src={portraitImg}
                 alt="portrait"
               />
-              <p className="text-lg font-bold">{mango.name}</p>
+              <p className="text-lg font-bold">{mango.chapterName}</p>
             </div>
           ))}
         </div>

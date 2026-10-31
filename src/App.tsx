@@ -1,9 +1,12 @@
 import profileImg from "./assets/profile.png";
 import portraitImg from "./assets/PORTADA1.png";
 import { useNavigate } from "react-router-dom";
+import { useGetMangos } from "./hooks/useGetMangos";
+import { LoadingPage } from "./pages/LoadingPage";
 // import backgroundImg from "./assets/background.png";
 
 function App() {
+  const { loading, mangas } = useGetMangos();
   const navigate = useNavigate();
   const mangos = [
     { name: "POKÉMON RED & LEAF", img: portraitImg },
@@ -27,6 +30,7 @@ function App() {
     { name: "POKÉMON RED & LEAF", img: portraitImg },
     { name: "POKÉMON RED & LEAF", img: portraitImg },
   ];
+  if (loading) return <LoadingPage />;
   return (
     <div className="flex flex-col w-full text-white items-center bg-neutral-900">
       <header className="relative flex w-full h-52 items-center justify-center bg-[url(./assets/background.png)] bg-center bg-cover">
@@ -44,7 +48,7 @@ function App() {
             <div
               className="cursor-pointer hover:scale-110 hover:brightness-100 transition-all duration-300 flex flex-col gap-2 h-56 md:h-full w-24 md:w-64 items-center md:aspect-3/4 overflow-hidden brightness-75"
               key={index}
-              onClick={() => navigate("/manga")}
+              onClick={() => navigate("/manga", { state: { mangas: mangas } })}
             >
               <img
                 className="block w-full h-full object-cover rounded-xl"
