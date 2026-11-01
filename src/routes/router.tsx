@@ -5,6 +5,6 @@ import { ChapterPage } from "../pages/ChapterPage";
 
 export const router = createBrowserRouter([
   { path: "/", element: <App /> },
-  { path: "/manga", element: <MangaPage /> },
-  { path: "/chapter", element: <ChapterPage /> },
+  { path: "/:mangaSlug", element: <MangaPage /> },
+  { path: "/:mangaSlug/:chapterId", element: <ChapterPage /> },
 ]);

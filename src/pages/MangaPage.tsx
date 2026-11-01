@@ -1,31 +1,24 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import portraitImg from "../assets/PORTADA1.png";
-import type { Manga } from "../hooks/useGetMangos";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useGetMangaChapters } from "../hooks/useGetMangaChapters";
+import { LoadingPage } from "./LoadingPage";
 
 interface LocationState {
-  mangas: Manga[];
+  imgPortrait: string;
 }
 
 export const MangaPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const state = location.state as LocationState | null;
+  const state = location.state as LocationState;
 
-  const mangas = state?.mangas ?? [];
-  // const mangos = [
-  //   { name: "Chapter 1 - Pallet Town", img: portraitImg },
-  //   { name: "Chapter 1 - Pallet Town", img: portraitImg },
-  //   { name: "Chapter 1 - Pallet Town", img: portraitImg },
-  //   { name: "Chapter 1 - Pallet Town", img: portraitImg },
-  //   { name: "Chapter 1 - Pallet Town", img: portraitImg },
-  //   { name: "Chapter 1 - Pallet Town", img: portraitImg },
-  //   { name: "Chapter 1 - Pallet Town", img: portraitImg },
-  //   { name: "Chapter 1 - Pallet Town", img: portraitImg },
-  //   { name: "Chapter 1 - Pallet Town", img: portraitImg },
-  //   { name: "Chapter 1 - Pallet Town", img: portraitImg },
-  //   { name: "Chapter 1 - Pallet Town", img: portraitImg },
-  // ];
+  const imgPortrait = state.imgPortrait;
+
+  const { mangaSlug } = useParams<{ mangaSlug: string }>();
+
+  const { loading, chapters } = useGetMangaChapters(mangaSlug as string);
+
+  if (loading) return <LoadingPage />;
 
   return (
     <div className="flex flex-col w-full text-white items-center bg-neutral-900">
@@ -35,7 +28,7 @@ export const MangaPage = () => {
             <div className="flex flex-col items-center md:items-start gap-2">
               <img
                 className="h-52 rounded-lg w-40"
-                src={portraitImg}
+                src={imgPortrait}
                 alt="profile"
               />
               <h1 className="text-2xl font-bold">POKÉMON RED & LEAF</h1>
@@ -46,20 +39,22 @@ export const MangaPage = () => {
       <main className="flex flex-col gap-6 bg-neutral-900 p-6 max-w-7xl w-full">
         <p className="text-xl font-bold w-full">Chapters</p>
         <div className="w-full flex flex-col gap-4 justify-center">
-          {mangas.map((mango, index) => (
+          {chapters.map((chapter) => (
             <div
               className="hover:scale-105 cursor-pointer transition-all duration-300 flex items-center gap-2 bg-neutral-700 p-2 rounded-lg w-full"
-              key={index}
+              key={chapter.id}
               onClick={() => {
-                navigate("/chapter", { state: { manga: mango } });
+                navigate(`/${mangaSlug}/${chapter.id}`, {
+                  state: { chapter: chapter },
+                });
               }}
             >
               <img
                 className="block w-12 h-12 object-cover rounded-xl"
-                src={portraitImg}
+                src={imgPortrait}
                 alt="portrait"
               />
-              <p className="text-lg font-bold">{mango.chapterName}</p>
+              <p className="text-lg font-bold">{chapter.chapterName}</p>
             </div>
           ))}
         </div>

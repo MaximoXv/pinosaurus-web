@@ -1,12 +1,7 @@
 import { useEffect, useState } from "react";
+import type { Manga } from "../types/Manga";
 
-export interface Manga {
-  chapterName: string;
-  pages: { img: string; order: number }[];
-  order: number;
-}
-
-export const useGetMangos = () => {
+export const useGetMangas = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [mangas, setMangas] = useState<Manga[]>([]);
 
@@ -15,7 +10,7 @@ export const useGetMangos = () => {
       setLoading(true);
       try {
         const data = await fetch(
-          "https://raw.githubusercontent.com/MaximoXv/pinosaurus-api/refs/heads/master/api.json",
+          "https://raw.githubusercontent.com/MaximoXv/pinosaurus-api/refs/heads/master/api/api.json",
         );
         const parsedData: Manga[] = await data.json();
         setMangas(parsedData);
