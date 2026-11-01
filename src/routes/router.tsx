@@ -4,7 +4,7 @@ import { MangaPage } from "../pages/MangaPage";
 import { ChapterPage } from "../pages/ChapterPage";
 
 export const router = createBrowserRouter([
-  { path: "/", element: <App /> },
-  { path: "/:mangaSlug", element: <MangaPage /> },
-  { path: "/:mangaSlug/:chapterId", element: <ChapterPage /> },
+  { path: "/pinosaurus-web", element: <App /> },
+  { path: "/pinosaurus-web/:mangaSlug", element: <MangaPage /> },
+  { path: "/pinosaurus-web/:mangaSlug/:chapterId", element: <ChapterPage /> },
 ]);

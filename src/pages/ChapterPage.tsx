@@ -13,7 +13,11 @@ export const ChapterPage = () => {
     chapterId: Number(chapterId),
   });
 
-  if (loading) return <LoadingPage />;
+  if (loading || chapterPages.length == 0) return <LoadingPage />;
+
+  if (!chapterPages || chapterPages.length === 0) {
+    return <p>No hay páginas disponibles.</p>;
+  }
 
   chapterPages.sort((m, b) => m.order - b.order);
   return (

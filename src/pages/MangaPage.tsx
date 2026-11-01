@@ -10,9 +10,8 @@ export const MangaPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const state = location.state as LocationState;
-
-  const imgPortrait = state.imgPortrait;
+  const state = location.state as LocationState | null;
+  const imgPortrait = state?.imgPortrait;
 
   const { mangaSlug } = useParams<{ mangaSlug: string }>();
 
@@ -20,17 +19,23 @@ export const MangaPage = () => {
 
   if (loading) return <LoadingPage />;
 
+  if (!chapters || chapters.length === 0) {
+    return <p>No hay capítulos disponibles.</p>;
+  }
+
   return (
     <div className="flex flex-col w-full text-white items-center bg-neutral-900">
       <header className="relative flex w-full h-80 items-center justify-center bg-[url(./assets/PORTADA.png)] bg-center bg-cover">
         <div className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center bg-black/50 backdrop-blur-xs">
           <div className="w-full p-0  md:pl-24 xl:max-w-5xl xl:p-0">
             <div className="flex flex-col items-center md:items-start gap-2">
-              <img
-                className="h-52 rounded-lg w-40"
-                src={imgPortrait}
-                alt="profile"
-              />
+              {imgPortrait && (
+                <img
+                  className="h-52 rounded-lg w-40"
+                  src={imgPortrait}
+                  alt="profile"
+                />
+              )}
               <h1 className="text-2xl font-bold">POKÉMON RED & LEAF</h1>
             </div>
           </div>
@@ -44,7 +49,7 @@ export const MangaPage = () => {
               className="hover:scale-105 cursor-pointer transition-all duration-300 flex items-center gap-2 bg-neutral-700 p-2 rounded-lg w-full"
               key={chapter.id}
               onClick={() => {
-                navigate(`/${mangaSlug}/${chapter.id}`, {
+                navigate(`/pinosaurus-web/${mangaSlug}/${chapter.id}`, {
                   state: { chapter: chapter },
                 });
               }}

@@ -8,7 +8,7 @@ function App() {
   const { loading, mangas } = useGetMangas();
   const navigate = useNavigate();
 
-  if (loading) return <LoadingPage />;
+  if (loading || mangas.length == 0) return <LoadingPage />;
   return (
     <div className="flex flex-col w-full text-white items-center bg-neutral-900">
       <header className="relative flex w-full h-52 items-center justify-center bg-[url(./assets/background.png)] bg-center bg-cover">
@@ -27,7 +27,7 @@ function App() {
               className="cursor-pointer hover:scale-110 hover:brightness-100 transition-all duration-300 flex flex-col gap-2 h-56 md:h-full w-24 md:w-64 items-center md:aspect-3/4 overflow-hidden brightness-75"
               key={manga.id}
               onClick={() =>
-                navigate(`/${manga.slug}`, {
+                navigate(`/pinosaurus-web/${manga.slug}`, {
                   state: { imgPortrait: manga.imgPortrait },
                 })
               }
