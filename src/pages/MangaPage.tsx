@@ -24,7 +24,7 @@ export const MangaPage = () => {
   }
 
   return (
-    <div className="flex flex-col w-full text-white items-center bg-neutral-900 min-h-screen">
+    <div className="flex flex-col w-full text-white items-center bg-neutral-900 min-h-svh md:min-h-screen">
       <header className="relative flex w-full h-80 items-center justify-center bg-[url(./assets/PORTADA.png)] bg-center bg-cover">
         <div className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center bg-black/50 backdrop-blur-xs">
           <div className="w-full p-0  md:pl-24 xl:max-w-5xl xl:p-0">

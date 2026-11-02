@@ -21,7 +21,7 @@ export const ChapterPage = () => {
 
   chapterPages.sort((m, b) => m.order - b.order);
   return (
-    <div className="bg-neutral-900 w-full flex flex-col items-center gap-2 min-h-screen">
+    <div className="bg-neutral-900 w-full flex flex-col items-center gap-2 min-h-svh md:min-h-screen">
       {chapterPages.map((page, index) => (
         <img key={index} className="w-full md:w-1/2" src={page.img} alt="" />
       ))}
