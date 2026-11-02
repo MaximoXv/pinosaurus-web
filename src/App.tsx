@@ -10,7 +10,7 @@ function App() {
 
   if (loading || mangas.length == 0) return <LoadingPage />;
   return (
-    <div className="flex flex-col w-full text-white items-center bg-neutral-900">
+    <div className="flex flex-col w-full text-white items-center bg-neutral-900 min-h-screen">
       <header className="relative flex w-full h-52 items-center justify-center bg-[url(./assets/background.png)] bg-center bg-cover">
         <div className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center bg-black/70">
           <div className="flex flex-col items-center">
